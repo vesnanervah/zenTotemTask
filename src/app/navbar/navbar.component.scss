@@ -21,6 +21,7 @@
         width: 100px;
         border-radius: 10px;
         transition: all 100ms;
+        text-decoration: none;
 
         &.selected {
             background-color: var(--links-color);

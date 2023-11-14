@@ -1,0 +1,11 @@
+<div class="login__variant">
+    <h2 class="login__header">Sign in</h2>
+    <form class="login__form">
+        <app-base-validated-input [data]="validatedFields['login']"></app-base-validated-input>
+        <app-base-validated-input [data]="validatedFields['password']"></app-base-validated-input>
+        <app-base-validated-input [data]="validatedFields['repeatPassword']"></app-base-validated-input>
+        <button type="submit" class="login__btn" >Sign in</button>
+        <div class="login__or">already have an account?</div>
+        <button type="button" class="login__btn" routerLink="/login/sign-in">Sign in</button>
+    </form>
+</div>
