@@ -8,7 +8,7 @@ export default class BaseLoginVariant {
     }
 
     private createErrorMessage(fields: ValidatedFields) {
-        return Object.values(fields).filter((field) => !field.valid).reduce((acc, current) =>acc + ' ' + current.errorMsg, '');
+        return Object.values(fields).filter((field) => !field.valid).reduce((acc, current) =>acc + '<br>' + current.errorMsg, '');
     }
 
     private animateIncompleteState(wrapper: HTMLElement | undefined) {
@@ -55,15 +55,19 @@ export default class BaseLoginVariant {
         ], 300);
     }
 
-    protected preSubmit(event: Event, fields: ValidatedFields, wrapper: ElementRef<HTMLElement> | undefined, onSuccedCallback: () => void) {
+    protected preSubmit(event: Event, 
+        fields: ValidatedFields, 
+        wrapper: ElementRef<HTMLElement> | undefined,
+        errorMsg: ElementRef<HTMLElement> | undefined, 
+        onSuccedCallback: () => void) {
         event.preventDefault();
         console.log('submited');
         if (this.checkSubmitReady(fields)) {
             onSuccedCallback();
         } else {
-          const errorTxt = this.createErrorMessage(fields);
-          console.log(errorTxt);
+          const errorHtml = this.createErrorMessage(fields);
           this.animateIncompleteState(wrapper?.nativeElement);
+          if (errorMsg?.nativeElement) errorMsg.nativeElement.innerHTML = errorHtml;
         }
     }
 }

@@ -1,6 +1,11 @@
 @import './colors';
 
 @mixin login-variant {
+    background-color: $primary-color;
+    width: fit-content;
+    border-radius: 18px;
+    padding: 30px 25px 50px;
+    margin: 100px auto 10px;
     .login__header {
         color: $white-l;
         font-size: 32px;
@@ -33,4 +38,12 @@
         font-size: 14px;
         font-weight: 500;
     }
+}
+
+@mixin login-error {
+    color: $errors-color;
+    max-width: 360px;
+    margin: 0 auto;
+    font-size: 12px;
+    text-align: center;
 }

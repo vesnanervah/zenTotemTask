@@ -3,3 +3,7 @@
 .login__variant {
     @include login-variant;
 }
+
+.login__error {
+    @include login-error;
+}

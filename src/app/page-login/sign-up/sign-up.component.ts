@@ -14,13 +14,14 @@ import BaseLoginVariant from '../base-login-variant';
 })
 export class SignUpComponent extends BaseLoginVariant{
   @ViewChild('variant') elemRef: ElementRef <HTMLElement> | undefined;
+  @ViewChild('error') errorRef: ElementRef <HTMLElement> | undefined;
   validatedFields: ValidatedFields = {
     login: {
       name: 'login',
       ref: undefined,
-      value: "Login should contains only a-z, A-Z letters.",
+      value: "",
       valid: false,
-      errorMsg: "Login",
+      errorMsg: "Login should contains only a-z, A-Z letters.",
       placeholder: 'Login',
       inputType: 'text'
     },
@@ -49,7 +50,7 @@ export class SignUpComponent extends BaseLoginVariant{
   }
 
   handleSubmitClick(event: Event) {
-    this.preSubmit(event, this.validatedFields, this.elemRef, this.finishSignUp)
+    this.preSubmit(event, this.validatedFields, this.elemRef, this.errorRef, this.finishSignUp)
   }
 
   private finishSignUp() {
