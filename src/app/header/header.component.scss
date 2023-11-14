@@ -1,0 +1,29 @@
+.app_header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--secondary-color);
+    color: var(--white-xxl);
+    padding: 2px 10px;
+    h1 {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .app_header__left,
+    .app_header__center,
+    .app_header__right {
+        width: 200px;
+    }
+
+    .app_header__center {
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .app_header__right {
+        text-align: right;
+    }
+
+    
+}
