@@ -1,14 +1,20 @@
 import { ElementRef } from "@angular/core";
-import { ValidatedFields } from "../../types/base-validated-input";
+import { TypedEventArgs, ValidatedFields, ValidationEventArgs } from "../../types/base-validated-input";
 
 export default class BaseLoginVariant {
 
-    private checkSubmitReady(fields: ValidatedFields) {
-        return Object.values(fields).every((field) => field.valid);
+    validatedFields: ValidatedFields;
+
+    constructor(fields: ValidatedFields) {
+        this.validatedFields = fields
     }
 
-    private createErrorMessage(fields: ValidatedFields) {
-        return Object.values(fields).filter((field) => !field.valid).reduce((acc, current) =>acc + '<br>' + current.errorMsg, '');
+    private checkSubmitReady() {
+        return Object.values(this.validatedFields).every((field) => field.valid);
+    }
+
+    private createErrorMessage() {
+        return Object.values(this.validatedFields).filter((field) => !field.valid).reduce((acc, current) =>acc + '<br>' + current.errorMsg, '');
     }
 
     private animateIncompleteState(wrapper: HTMLElement | undefined) {
@@ -56,18 +62,26 @@ export default class BaseLoginVariant {
     }
 
     protected preSubmit(event: Event, 
-        fields: ValidatedFields, 
         wrapper: ElementRef<HTMLElement> | undefined,
         errorMsg: ElementRef<HTMLElement> | undefined, 
         onSuccedCallback: () => void) {
         event.preventDefault();
         console.log('submited');
-        if (this.checkSubmitReady(fields)) {
+        if (this.checkSubmitReady()) {
+            if (errorMsg?.nativeElement) errorMsg.nativeElement.innerHTML = '';
             onSuccedCallback();
         } else {
-          const errorHtml = this.createErrorMessage(fields);
+          const errorHtml = this.createErrorMessage();
           this.animateIncompleteState(wrapper?.nativeElement);
           if (errorMsg?.nativeElement) errorMsg.nativeElement.innerHTML = errorHtml;
         }
+    }
+
+    protected handleInput(args: TypedEventArgs) {
+        this.validatedFields[args.name].value = args.result;
+      }
+    
+    protected handleValidation(args: ValidationEventArgs) {
+      this.validatedFields[args.name].valid = args.result;
     }
 }

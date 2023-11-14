@@ -11,7 +11,7 @@ import { TypedEventArgs, ValidatedField, ValidationEventArgs } from '../../types
 })
 export class BaseValidatedInputComponent {
   @Input() data: ValidatedField | undefined;
-  @Input() validationFn: ((value: string) => boolean) | undefined;
+  @Input() validationCompare: string | undefined | ((value: string) => boolean); 
   @Output() validation: EventEmitter<ValidationEventArgs> = new EventEmitter();
   @Output() typed: EventEmitter<TypedEventArgs> = new EventEmitter();
   @ViewChild('inputElem') inputElem: ElementRef<HTMLInputElement> | undefined;
@@ -28,8 +28,16 @@ export class BaseValidatedInputComponent {
       event.preventDefault();
       return;
     }
-    const valid = this.validationFn ? this.validationFn(value) : true;
+    let valid = false;
+    if (typeof this.validationCompare === 'string') {
+      valid = new RegExp(this.validationCompare).test(value)
+    }
+    if (typeof this.validationCompare === 'function') {
+      valid = this.validationCompare(value);
+    }
     this.validation.emit({name: this.data?.name as string, result: valid});
     this.typed.emit({ name: this.data?.name as string, result: value});
   }
+
+  
 }
