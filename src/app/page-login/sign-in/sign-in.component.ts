@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ValidatedFields } from '../../../types/base-validated-input';
 import { BaseValidatedInputComponent } from '../../base-validated-input/base-validated-input.component';
 import { RouterLink } from '@angular/router';
+import BaseLoginVariant from '../base-login-variant';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +12,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
-export class SignInComponent {
+export class SignInComponent extends BaseLoginVariant {
+  @ViewChild('variant') elemRef: ElementRef <HTMLElement> | undefined;
+
   validatedFields: ValidatedFields = {
     login: {
       name: 'login',
@@ -32,4 +35,17 @@ export class SignInComponent {
       inputType: 'password'
     },
   };
+
+  constructor() {
+    super();
+  }
+
+  handleSubmitClick(event: Event) {
+    this.preSubmit(event, this.validatedFields, this.elemRef, this.finishLogin);
+  }
+
+  private finishLogin() {
+    // send login data to server
+  }
+
 }

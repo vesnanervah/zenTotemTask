@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseValidatedInputComponent } from '../../base-validated-input/base-validated-input.component';
 import { RouterLink } from '@angular/router';
 import { ValidatedFields } from '../../../types/base-validated-input';
+import BaseLoginVariant from '../base-login-variant';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +12,8 @@ import { ValidatedFields } from '../../../types/base-validated-input';
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
-export class SignUpComponent {
+export class SignUpComponent extends BaseLoginVariant{
+  @ViewChild('variant') elemRef: ElementRef <HTMLElement> | undefined;
   validatedFields: ValidatedFields = {
     login: {
       name: 'login',
@@ -41,4 +43,16 @@ export class SignUpComponent {
       inputType: 'password'
     },
   };
+
+  constructor() {
+    super();
+  }
+
+  handleSubmitClick(event: Event) {
+    this.preSubmit(event, this.validatedFields, this.elemRef, this.finishSignUp)
+  }
+
+  private finishSignUp() {
+    // send data to server and redirect to successful sign up page
+  }
 }
