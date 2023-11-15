@@ -1,5 +1,6 @@
 import express, { json } from 'express';
 import cors from 'cors';
+import crypto from 'crypto';
 import { DataTypes, Sequelize } from 'sequelize'
 import { User } from "./types/user";
 import { LoginBody } from './types/login-body';
@@ -54,7 +55,7 @@ app.post('/login', async (req, res) => {
         const finded = await User.findOne({
             where: {
                 login,
-                password
+                password: makeHashPass(password)
             }
         });
         if(finded) { 
@@ -73,7 +74,7 @@ app.post('/new-user', async (req, res) => {
         const { login, password } = req.body as RegisterBody;
         const newUser = await User.create({
             login,
-            password,
+            password: makeHashPass(password),
             firstName: 'Анонимный',
             lastName: 'Пользователь',
             phone: 9999999999,
@@ -93,5 +94,11 @@ app.get('/users', async (req, res)=> {
 });
 
 app.listen(5000, () => {
-    console.log('Backend api is running on port 5000');
+    console.log('Backend api is running on port 6000');
 });
+
+
+function makeHashPass(password: string) {
+    const sha = crypto.createHash('sha256');
+    return sha.update(password).digest('base64');
+}
