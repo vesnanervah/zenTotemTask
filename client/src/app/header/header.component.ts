@@ -18,7 +18,9 @@ export class HeaderComponent {
   ) { }
 
   getHelloTxt () {
-    return this.authService.getUserData() ? 'Вы вошли как' : 'Вы не вошли.'
+    return this.authService.getUserData() ? 
+    `Вы вошли как ${this.authService.getUserData()?.firstName} ${this.authService.getUserData()?.lastName}`
+    : 'Вы не вошли.'
   }
 
   getBtnTxt () {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UserData } from '../types/user-data';
+import { LoginData, UserData } from '../types/user-data';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,24 @@ export class AuthService {
   private loggedIn = false;
   private userData: UserData | undefined;
 
-  constructor() { }
+  constructor(
+  ) { }
+
+  async login(data: LoginData) {
+    const res = await fetch('http://localhost:5000/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+    if (res.status === 200) {
+      console.log('successful login');
+      this.userData = await res.json();
+      this.loggedIn = true;
+    }
+    return res;
+  }
 
   isLoggedIn() {
     return this.loggedIn;

@@ -1,6 +1,5 @@
 import { ElementRef } from "@angular/core";
 import { TypedEventArgs, ValidatedFields, ValidationEventArgs } from "../../types/base-validated-input";
-
 export default class BaseLoginVariant {
 
     validatedFields: ValidatedFields;
@@ -64,11 +63,11 @@ export default class BaseLoginVariant {
     protected preSubmit(event: Event, 
         wrapper: ElementRef<HTMLElement> | undefined,
         errorMsg: ElementRef<HTMLElement> | undefined, 
-        onSuccedCallback: () => void) {
+        ) {
         event.preventDefault();
         if (this.checkSubmitReady()) {
             if (errorMsg?.nativeElement) errorMsg.nativeElement.innerHTML = '';
-            onSuccedCallback();
+            this.authTry();
         } else {
           const errorHtml = this.createErrorMessage();
           this.animateIncompleteState(wrapper?.nativeElement);
@@ -82,5 +81,9 @@ export default class BaseLoginVariant {
     
     protected handleValidation(args: ValidationEventArgs) {
       this.validatedFields[args.name].valid = args.result;
+    }
+
+    protected async authTry() {
+        console.log('Base method was called. Override it in child class');
     }
 }

@@ -1,9 +1,16 @@
 type UserData = {
-    id: string,
-    firstName: string | undefined,
-    lastName: string | undefined,
+    userID: string,
+    firstName: string,
+    lastName: string,
     login: string,
     password: string,
+    phone: number,
+    website: string | undefined
 }
 
-export { UserData };
+type LoginData = {
+    login: string,
+    password: string
+}
+
+export { UserData, LoginData };

@@ -1,8 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseValidatedInputComponent } from '../../base-validated-input/base-validated-input.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import BaseLoginVariant from '../base-login-variant';
+import { AuthService } from '../../auth.service';
+import { LoginData } from '../../../types/user-data';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -15,7 +18,10 @@ export class SignInComponent extends BaseLoginVariant {
   @ViewChild('variant') elemRef: ElementRef <HTMLElement> | undefined;
   @ViewChild('error') errorRef: ElementRef <HTMLElement> | undefined;
 
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
     super({
       login: {
         name: 'login',
@@ -39,13 +45,44 @@ export class SignInComponent extends BaseLoginVariant {
   }
 
   handleSubmitClick(event: Event) {
-    this.preSubmit(event, this.elemRef, this.errorRef, this.finishLogin);
+    this.preSubmit(event, this.elemRef, this.errorRef);
   }
 
-  private finishLogin() {
-    // send login data to server
+  protected override async authTry() {
+    const loginData:LoginData = {
+      login: this.validatedFields['login'].value,
+      password: this.validatedFields['password'].value
+    }
+    const res = await this.authService.login(loginData);
+    if (res.status === 200) {
+      this.router.navigateByUrl('/profile');
+    }
   }
 
-  
-
+  private async finishLogin() {
+    const loginData:LoginData = {
+      login: this.validatedFields['login'].value,
+      password: this.validatedFields['login'].value
+    };
+    console.log(loginData)
+    const res = await this.authService.login(loginData);
+    if (res.status === 200) {
+      this.router.navigateByUrl('/profile');
+    }
+    /*const loginField = this.validatedFields['login'];
+    const passwordField = this.validatedFields['password'];
+    const authService = this.authService;
+    const router = this.router; // closur
+    return async() => {
+      const loginData:LoginData = {
+        login: loginField.value,
+        password: passwordField.value
+      }
+      const res = await authService.login(loginData);
+      console.log(res.json())
+      if (res.status === 200) {
+        router.navigateByUrl('/profile');
+      }*/
+    }
 }
+

@@ -49,7 +49,7 @@ export class SignUpComponent extends BaseLoginVariant{
   }
 
   handleSubmitClick(event: Event) {
-    this.preSubmit(event, this.elemRef, this.errorRef, this.finishSignUp)
+    this.preSubmit(event, this.elemRef, this.errorRef)
   }
 
   private finishSignUp() {
