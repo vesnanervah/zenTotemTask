@@ -3,6 +3,7 @@ import cors from 'cors';
 import { DataTypes, Sequelize } from 'sequelize'
 import { User } from "./types/user";
 import { LoginBody } from './types/login-body';
+import { RegisterBody } from './types/register-body';
 
 
 const app = express();
@@ -65,6 +66,25 @@ app.post('/login', async (req, res) => {
         res.statusCode = 404;
         res.send('Nothing found');
     }
+});
+
+app.post('/new-user', async (req, res) => {
+    try {
+        const { login, password } = req.body as RegisterBody;
+        const newUser = await User.create({
+            login,
+            password,
+            firstName: 'Анонимный',
+            lastName: 'Пользователь',
+            phone: 9999999999,
+            website: null
+        });
+        res.send(newUser.toJSON());
+    } catch {
+        res.statusCode = 404
+        res.send('Incorrect data provided')
+    }
+
 });
 
 app.get('/users', async (req, res)=> {
