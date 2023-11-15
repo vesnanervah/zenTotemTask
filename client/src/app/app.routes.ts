@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth.guard';
 import { loginGuard } from './login.guard';
 import { PageProfileComponent } from './page-profile/page-profile.component';
 import { PageLoginComponent } from './page-login/page-login.component';
@@ -40,11 +39,12 @@ export const routes: Routes = [
                 pathMatch:'full'
             }
         ],
-        canActivate: [loginGuard]
+        canActivate: [loginGuard],
+        canActivateChild: [loginGuard]
     },
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: '/home',
         pathMatch: 'full'
     },
 ];

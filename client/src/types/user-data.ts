@@ -3,9 +3,9 @@ type UserData = {
     firstName: string,
     lastName: string,
     login: string,
-    password: string,
     phone: number,
-    website: string | undefined
+    website: string | null,
+    role: string
 }
 
 type LoginData = {
@@ -13,4 +13,10 @@ type LoginData = {
     password: string
 }
 
-export { UserData, LoginData };
+type LoginResponse = {
+    user: UserData,
+    token: string
+
+}
+
+export { UserData, LoginData, LoginResponse };

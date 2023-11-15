@@ -3,9 +3,10 @@ type User = {
     firstName: string,
     lastName: string,
     login: string,
-    password: string, // только в тестовых целях, в реале должен быть хеш и дб
+    password: string, // хешится в sha256
     phone: number,
-    website: string | null
+    website: string | null,
+    role: string
 }
 
 export { User };
