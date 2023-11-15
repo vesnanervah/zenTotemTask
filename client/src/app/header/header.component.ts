@@ -29,11 +29,9 @@ export class HeaderComponent {
 
   handleBtnClick() {
     if (this.authService.isLoggedIn()) {
-      // logout
-    } else {
-      console.log('Navigatin to login')
-      this.router.navigateByUrl('login');
-    }
+      this.authService.loggout()
+    } 
+    this.router.navigateByUrl('login');
   }
 
 }

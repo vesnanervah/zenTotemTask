@@ -22,11 +22,15 @@ export class AuthService {
       body: JSON.stringify(data)
     });
     if (res.status === 200) {
-      console.log('successful login');
       this.userData = await res.json();
       this.loggedIn = true;
     }
     return res;
+  }
+
+  loggout() {
+    this.userData = undefined;
+    this.loggedIn = false;
   }
 
   isLoggedIn() {
