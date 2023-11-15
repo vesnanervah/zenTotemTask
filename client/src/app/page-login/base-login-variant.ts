@@ -16,7 +16,7 @@ export default class BaseLoginVariant {
         return Object.values(this.validatedFields).filter((field) => !field.valid).reduce((acc, current) =>acc + '<br>' + current.errorMsg, '');
     }
 
-    private animateIncompleteState(wrapper: HTMLElement | undefined) {
+    protected animateIncompleteState(wrapper: HTMLElement | undefined) {
         if (!wrapper) {
             return
         }

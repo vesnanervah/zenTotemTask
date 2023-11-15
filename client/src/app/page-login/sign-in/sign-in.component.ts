@@ -56,33 +56,10 @@ export class SignInComponent extends BaseLoginVariant {
     const res = await this.authService.login(loginData);
     if (res.status === 200) {
       this.router.navigateByUrl('/profile');
+      return;
     }
+    if(this.errorRef)this.errorRef.nativeElement.textContent = 'Неправильный логин или пароль';
+    this.animateIncompleteState(this.elemRef?.nativeElement);
   }
-
-  private async finishLogin() {
-    const loginData:LoginData = {
-      login: this.validatedFields['login'].value,
-      password: this.validatedFields['login'].value
-    };
-    console.log(loginData)
-    const res = await this.authService.login(loginData);
-    if (res.status === 200) {
-      this.router.navigateByUrl('/profile');
-    }
-    /*const loginField = this.validatedFields['login'];
-    const passwordField = this.validatedFields['password'];
-    const authService = this.authService;
-    const router = this.router; // closur
-    return async() => {
-      const loginData:LoginData = {
-        login: loginField.value,
-        password: passwordField.value
-      }
-      const res = await authService.login(loginData);
-      console.log(res.json())
-      if (res.status === 200) {
-        router.navigateByUrl('/profile');
-      }*/
-    }
 }
 
