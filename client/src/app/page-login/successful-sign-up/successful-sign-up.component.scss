@@ -1,0 +1,6 @@
+@import '../../../sass/login-variant';
+
+.login__variant {
+    @include login-variant;
+    text-align: center;
+}

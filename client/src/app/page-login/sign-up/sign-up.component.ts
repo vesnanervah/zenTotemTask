@@ -1,9 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseValidatedInputComponent } from '../../base-validated-input/base-validated-input.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ValidatedFields } from '../../../types/base-validated-input';
 import BaseLoginVariant from '../base-login-variant';
+import { AuthService } from '../../auth.service';
+import { LoginData } from '../../../types/user-data';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,7 +18,10 @@ export class SignUpComponent extends BaseLoginVariant{
   @ViewChild('variant') elemRef: ElementRef <HTMLElement> | undefined;
   @ViewChild('error') errorRef: ElementRef <HTMLElement> | undefined;
 
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
     super({
       login: {
         name: 'login',
@@ -52,8 +57,16 @@ export class SignUpComponent extends BaseLoginVariant{
     this.preSubmit(event, this.elemRef, this.errorRef)
   }
 
-  private finishSignUp() {
-    // send data to server and redirect to successful sign up page
+  protected override async authTry() {
+    const loginData:LoginData = {
+      login: this.validatedFields['login'].value,
+      password: this.validatedFields['password'].value
+    }
+    const res = await this.authService.register(loginData);
+    if (res.status === 200) {
+      this.router.navigateByUrl('/login/successful');
+      return;
+    }
   }
 
   passwordValidation() {
