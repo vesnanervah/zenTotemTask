@@ -11,5 +11,12 @@ import { AuthService } from '../auth.service';
   styleUrl: './page-login.component.scss'
 })
 export class PageLoginComponent {
-  
+  constructor(private authService: AuthService, private router: Router) {
+    if (this.authService.isLoggedIn() === true) { // TODO: Replace by guards
+      router.navigateByUrl('profile'); 
+    }
+    if (this.authService.isLoggedIn() === undefined) {
+      this.router.navigateByUrl('home'); 
+    }
+  }
 }

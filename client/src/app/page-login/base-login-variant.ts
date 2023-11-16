@@ -75,14 +75,6 @@ export default class BaseLoginVariant {
         }
     }
 
-    protected handleInput(args: TypedEventArgs) {
-        this.validatedFields[args.name].value = args.result;
-      }
-    
-    protected handleValidation(args: ValidationEventArgs) {
-      this.validatedFields[args.name].valid = args.result;
-    }
-
     protected async authTry() {
         console.log('Base method was called. Override it in child class');
     }

@@ -1,0 +1,17 @@
+<form class="profile_item">
+    <div class="item__top">
+        <div class="item__header">
+            {{data?.field?.name}}
+        </div>
+        <div class="item__controls" *ngIf="data?.canChange">
+            <button type="submit" class="item__btn" *ngIf="editMode" (click)="handleSaveClick($event)">confirm</button>
+            <button type="button" class="item__btn" *ngIf="editMode" (click)="handleCancelClick()">cancel</button>
+            <button type="button" class="item__btn" *ngIf="!editMode" (click)="handleEditClick()">edit</button>
+        </div>
+        <div class="item__btn" *ngIf="!data?.canChange">not changeable</div>
+    </div>
+    <div class="item__bottom">
+        <app-base-validated-input [data]="data?.field" [disabled]="!editMode" [validationCompare]="data?.validationStr"></app-base-validated-input>
+    </div>
+</form>
+<div class="error" #error></div>

@@ -1,5 +1,5 @@
 type LoginBody = {
-    login: string,
+    email: string,
     password: string
 }
 

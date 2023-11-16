@@ -10,26 +10,28 @@ export class AuthService {
   private userData: UserData | undefined;
 
   constructor(
-  ) {  
-    this.loginByToken();
-  }
+  ) {  }
 
-  async loginByToken() {
+  async loginByToken() {  // use only once in app component on app initialize
     const authData = this.getAuthFromStorage();
-    if(!authData.login && !authData.token) {
+    if(!authData.email && !authData.token) {
       this.loggout();
       return;
     }
-    const res = await fetch('http://localhost:5000/auth', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(authData)
-    });
-    if (res.status === 200 ) {
-      this.loggedIn = res.status === 200 ? true : false;
-      this.userData = (await res.json() as UserData)
+    try {
+      const res = await fetch('http://localhost:5000/auth', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(authData)
+      });
+      if (res.status === 200 ) {
+        this.loggedIn = true 
+        this.userData = (await res.json() as UserData)
+      }
+    } catch {
+      this.loggout();
     }
   }
 
@@ -45,7 +47,7 @@ export class AuthService {
       const jRes = (await res.json()) as LoginResponse
       this.userData = jRes.user;
       this.loggedIn = true;
-      this.setAuthToStorage(jRes.token, jRes.user.login);
+      this.setAuthToStorage(jRes.token, jRes.user.email);
     }
     return res;
   }
@@ -61,14 +63,15 @@ export class AuthService {
     if (res.status === 200) {
       const jRes = (await res.json()) as LoginResponse
       this.userData = jRes.user;
-      document.cookie = `token=${jRes.token}; user=${jRes.user.login}`;
+      document.cookie = `token=${jRes.token}; user=${jRes.user.email}`;
       this.loggedIn = true;
-      this.setAuthToStorage(jRes.token, jRes.user.login);
+      this.setAuthToStorage(jRes.token, jRes.user.email);
     }
     return res;
   }
 
   loggout() {
+    console.log('logout')
     this.userData = undefined;
     this.loggedIn = false;
     this.deleteAuthInStorage();
@@ -82,19 +85,19 @@ export class AuthService {
     return this.userData;
   }
 
-  private setAuthToStorage(token: string, login: string) {
+  private setAuthToStorage(token: string, email: string) {
     window.localStorage.setItem('token', token);
-    window.localStorage.setItem('login', login); // всё ещё очень небезопасно
+    window.localStorage.setItem('email', email); // всё ещё очень небезопасно
   }
 
   private deleteAuthInStorage() {
     window.localStorage.removeItem('token');
-    window.localStorage.removeItem('login');
+    window.localStorage.removeItem('email');
   }
 
   private getAuthFromStorage() {
     const token = window.localStorage.getItem('token');
-    const login = window.localStorage.getItem('login');
-    return { token, login };
+    const email = window.localStorage.getItem('email');
+    return { token, email };
   } 
 }

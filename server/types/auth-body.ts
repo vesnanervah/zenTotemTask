@@ -1,5 +1,5 @@
 type AuthBody = {
-    login: string,
+    email: string,
     token: string
 };
 

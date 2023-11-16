@@ -14,7 +14,7 @@ const sequelize = new Sequelize({
     storage: './sqlite.db'
 });
 const User = sequelize.define('User', {
-    login: {
+    email: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -59,29 +59,29 @@ app.post('/auth', async(req, res) => {
     const data = req.body as AuthBody;
     const finded = await User.findOne({
         where: {
-            login: data.login
+            email: data.email
         }
     });    
-    if (authTokens.get(data.login) === data.token && finded) {
+    if (authTokens.get(data.email) === data.token && finded) {
         res.send(finded.toJSON());
     } else {
-        res.statusCode = 401;
+        res.statusCode = 404;
         res.send('Unkown user. Token doesnt exist/expired or user not found.');
     }
 });
 
 app.post('/login', async (req, res) => {
-    const { login, password } = req.body as LoginBody;
+    const { email, password } = req.body as LoginBody;
     try {
         const finded = await User.findOne({
             where: {
-                login,
+                email,
                 password: makeHashPass(password)
             }
         });
         if(finded) { 
             const token = createToken();
-            authTokens.set(login, token);
+            authTokens.set(email, token);
             res.send({
                 user: finded,
                 token
@@ -97,9 +97,9 @@ app.post('/login', async (req, res) => {
 
 app.post('/new-user', async (req, res) => {
     try {
-        const { login, password } = req.body as RegisterBody;
+        const { email, password } = req.body as RegisterBody;
         const newUser = await User.create({
-            login,
+            email,
             password: makeHashPass(password),
             firstName: 'Анонимный',
             lastName: 'Пользователь',
@@ -108,7 +108,7 @@ app.post('/new-user', async (req, res) => {
             role: 'base'
         });
         const token = createToken(); 
-        authTokens.set(login, token); // TODO: Delete password from answer
+        authTokens.set(email, token); // TODO: Delete password from answer
         res.send({
             user: newUser.toJSON(),
             token

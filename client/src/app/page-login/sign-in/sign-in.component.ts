@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import BaseLoginVariant from '../base-login-variant';
 import { AuthService } from '../../auth.service';
 import { LoginData } from '../../../types/user-data';
-
+import { regExps } from '../../../reg-exps/reg-exps';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,19 +17,21 @@ import { LoginData } from '../../../types/user-data';
 export class SignInComponent extends BaseLoginVariant {
   @ViewChild('variant') elemRef: ElementRef <HTMLElement> | undefined;
   @ViewChild('error') errorRef: ElementRef <HTMLElement> | undefined;
+  regExps = regExps;
+
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {
     super({
-      login: {
-        name: 'login',
+      email: {
+        name: 'email',
         ref: undefined,
         value: "",
         valid: false,
         errorMsg: "Login should contains only a-z, A-Z letters.",
-        placeholder: 'Login',
+        placeholder: 'Email',
         inputType: 'text'
       },
       password: {
@@ -50,7 +52,7 @@ export class SignInComponent extends BaseLoginVariant {
 
   protected override async authTry() {
     const loginData:LoginData = {
-      login: this.validatedFields['login'].value,
+      email: this.validatedFields['email'].value,
       password: this.validatedFields['password'].value
     }
     const res = await this.authService.login(loginData);

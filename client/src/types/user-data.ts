@@ -2,14 +2,14 @@ type UserData = {
     userID: string,
     firstName: string,
     lastName: string,
-    login: string,
+    email: string,
     phone: number,
     website: string | null,
     role: string
 }
 
 type LoginData = {
-    login: string,
+    email: string,
     password: string
 }
 

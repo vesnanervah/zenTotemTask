@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TypedEventArgs, ValidatedField, ValidationEventArgs } from '../../types/base-validated-input';
 
@@ -9,13 +9,19 @@ import { TypedEventArgs, ValidatedField, ValidationEventArgs } from '../../types
   templateUrl: './base-validated-input.component.html',
   styleUrl: './base-validated-input.component.scss'
 })
-export class BaseValidatedInputComponent {
+export class BaseValidatedInputComponent implements OnInit {
   @Input() data: ValidatedField | undefined;
-  @Input() validationCompare: string | undefined | ((value: string) => boolean); 
+  @Input() validationCompare: RegExp | undefined | ((value: string) => boolean); 
+  @Input() disabled: boolean | undefined;
   @Output() validation: EventEmitter<ValidationEventArgs> = new EventEmitter();
   @Output() typed: EventEmitter<TypedEventArgs> = new EventEmitter();
   @ViewChild('inputElem') inputElem: ElementRef<HTMLInputElement> | undefined;
 
+  ngOnInit(): void {
+    if (this.data && this.data.value.length > 0 && this.inputElem) {
+      this.inputElem.nativeElement.value = this.data.value;
+    }
+  }
 
   handleKeyDown(event: KeyboardEvent) {
     if (event.key === ' ') {
@@ -29,11 +35,15 @@ export class BaseValidatedInputComponent {
       return;
     }
     let valid = false;
-    if (typeof this.validationCompare === 'string') {
-      valid = new RegExp(this.validationCompare).test(value)
+    if (this.validationCompare instanceof RegExp) {
+      valid = this.validationCompare.test(value)
     }
     if (typeof this.validationCompare === 'function') {
       valid = this.validationCompare(value);
+    }
+    if(this.data){
+      this.data.value = value;
+      this.data.valid = valid
     }
     this.validation.emit({name: this.data?.name as string, result: valid});
     this.typed.emit({ name: this.data?.name as string, result: value});

@@ -1,1 +1,9 @@
-<p>page-profile works!</p>
+<div class="profile_wrapper">
+    <h2 class="profile__header">
+        Profile
+    </h2>
+    <div class="profile__items">
+        <app-profile-item *ngFor="let item of itemsData" [data]="item"></app-profile-item>
+    </div>
+</div>
+
