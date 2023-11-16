@@ -1,12 +1,12 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
-import { DataTypes, Sequelize } from 'sequelize'
+import { DataTypes, Sequelize, where } from 'sequelize'
 import { User } from "./types/user";
 import { LoginBody } from './types/login-body';
 import { RegisterBody } from './types/register-body';
 import { AuthBody } from './types/auth-body';
-
+import { UpdateBody } from './types/update-body';
 
 const app = express();
 const sequelize = new Sequelize({
@@ -124,6 +124,18 @@ app.get('/users', async (req, res)=> {
     const users = await User.findAll();
     res.send(users);
 });
+
+app.post('/update-user', async(req, res) => {
+    try {
+        const { userID, name, value } = req.body as UpdateBody;
+        await User.update({ [name]: value }, { where: {userID} });
+        const updated = await User.findOne({where: {userID}});
+        res.send(updated?.toJSON());
+    } catch {
+        res.statusCode = 404;
+        res.send('Cant update provided user.');
+    }
+})
 
 app.listen(5000, () => {
     console.log('Backend api is running on port 5000');
