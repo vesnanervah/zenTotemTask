@@ -1,4 +1,5 @@
 @import '../../sass/headers';
+@import '../../sass/colors';
 
 .profile_wrapper {
     .profile__items {
@@ -13,4 +14,51 @@
 
 .main_content_header {
     @include main_content_header;
+}
+
+.update_feedbacks {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .feedback {
+        background-color: $secondary-color;
+        color: $white-l;
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .feedback__top {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        align-items: start;
+    }
+    
+    .feedback__header {
+        font-size: 19px;
+        font-weight: 500;
+    }
+
+    .feedback__close {
+        background-color: $secondary-color;
+        border: none;
+        color: $white-l;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .feedback__bottom {
+        font-size: 14px;
+
+    }
+
+    &.visible {
+        transform: translateX(0px);
+    }
+
 }

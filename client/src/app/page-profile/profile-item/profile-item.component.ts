@@ -1,8 +1,9 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseValidatedInputComponent } from '../../base-validated-input/base-validated-input.component';
 import { ProfileItemData } from '../../../types/profile-item';
 import { AuthService } from '../../auth.service';
+import { FeedbackElem } from '../../../types/feedback-elem';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ProfileItemComponent {
 
   @Input() data: ProfileItemData | undefined;
   @ViewChild('error') errorRef: ElementRef<HTMLElement> | undefined;
+  @Output() successfulUpdate: EventEmitter<FeedbackElem> = new EventEmitter();
   editMode = false;
 
   handleEditClick() {
@@ -55,7 +57,7 @@ export class ProfileItemComponent {
         name,
         value
       });
-      console.log(res);
+      this.successfulUpdate.emit({ name, newValue: value});
     } catch {
       console.log('Profile page cant update value')
     }

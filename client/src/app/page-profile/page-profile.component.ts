@@ -6,6 +6,7 @@ import { ProfileItemComponent } from './profile-item/profile-item.component';
 import { UserData } from '../../types/user-data';
 import { ProfileItemData } from '../../types/profile-item';
 import { regExps } from '../../reg-exps/reg-exps';
+import { FeedbackElem } from '../../types/feedback-elem';
 
 @Component({
   selector: 'app-page-profile',
@@ -16,8 +17,10 @@ import { regExps } from '../../reg-exps/reg-exps';
 })
 export class PageProfileComponent implements OnInit {
   
+  //@ViewChild('feedback') feedbackRef: ElementRef<HTMLElement> | undefined;
   private userData: UserData | undefined;
   itemsData: ProfileItemData[]  = [];
+  feedbacks: FeedbackElem[] = [];
 
   constructor(
     private router: Router,
@@ -34,6 +37,25 @@ export class PageProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userData = this.authService.getUserData();
     this.createItemsData()
+  }
+
+  handleSuccessfulUpdate(elem: FeedbackElem) {
+    if (this.feedbacks.length >= 2) {
+      this.feedbacks.shift();
+    }
+    this.feedbacks.push(elem);
+    console.log(this.feedbacks);
+    this.destroyFeedbackElem(elem);
+  }
+
+  handleDestroyClick(elem: FeedbackElem) {
+    this.feedbacks.splice(this.feedbacks.indexOf(elem), 1);
+  }
+
+  private destroyFeedbackElem(elem: FeedbackElem) {
+    setTimeout(() => {
+      if(Object.is(this.feedbacks[0], elem)) this.feedbacks.shift();
+    }, 30000)
   }
 
   private createItemsData() {
