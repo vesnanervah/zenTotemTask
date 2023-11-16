@@ -43,6 +43,8 @@ const User = sequelize.define('User', {
     },
     userID: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
         primaryKey: true
     }
 }, { timestamps: false, tableName: 'Users'});
@@ -109,6 +111,7 @@ app.post('/new-user', async (req, res) => {
         });
         const token = createToken(); 
         authTokens.set(email, token); // TODO: Delete password from answer
+        console.log(newUser.toJSON())
         res.send({
             user: newUser.toJSON(),
             token

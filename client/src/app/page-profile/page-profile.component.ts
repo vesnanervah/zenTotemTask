@@ -44,7 +44,6 @@ export class PageProfileComponent implements OnInit {
       this.feedbacks.shift();
     }
     this.feedbacks.push(elem);
-    console.log(this.feedbacks);
     this.destroyFeedbackElem(elem);
   }
 
