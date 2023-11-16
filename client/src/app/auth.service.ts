@@ -14,7 +14,7 @@ export class AuthService {
 
   async loginByToken() {  // use only once in app component on app initialize
     const authData = this.getAuthFromStorage();
-    if(!authData.email && !authData.token) {
+    if(!authData.email || !authData.token) {
       this.loggout();
       return;
     }
@@ -29,10 +29,13 @@ export class AuthService {
       if (res.status === 200 ) {
         this.loggedIn = true 
         this.userData = (await res.json() as UserData)
+      } else {
+        this.loggout();
       }
     } catch {
       this.loggout();
     }
+  
   }
 
   async login(data: LoginData) {

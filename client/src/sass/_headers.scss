@@ -1,0 +1,10 @@
+@import './colors';
+
+@mixin main_content_header {
+    color:$primary-color;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

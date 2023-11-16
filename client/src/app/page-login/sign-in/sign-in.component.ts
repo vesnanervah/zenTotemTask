@@ -30,7 +30,7 @@ export class SignInComponent extends BaseLoginVariant {
         ref: undefined,
         value: "",
         valid: false,
-        errorMsg: "Login should contains only a-z, A-Z letters.",
+        errorMsg: "Email should be in 'example@mail.com'.",
         placeholder: 'Email',
         inputType: 'text'
       },
