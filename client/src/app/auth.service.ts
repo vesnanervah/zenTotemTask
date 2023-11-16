@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoginData, LoginResponse, UserData } from '../types/user-data';
+import { LoginData, LoginResponse, UpdateData, UserData } from '../types/user-data';
 
 @Injectable({
   providedIn: 'root'
@@ -66,9 +66,24 @@ export class AuthService {
     if (res.status === 200) {
       const jRes = (await res.json()) as LoginResponse
       this.userData = jRes.user;
-      document.cookie = `token=${jRes.token}; user=${jRes.user.email}`;
       this.loggedIn = true;
       this.setAuthToStorage(jRes.token, jRes.user.email);
+    }
+    return res;
+  }
+
+  async updateUser(data: UpdateData) {
+    const res = await fetch('http://localhost:5000/update-user', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+    if (res.status === 200) {
+      this.userData = await res.json() as UserData;
+    } else{
+      throw new Error('Error while updating user');
     }
     return res;
   }

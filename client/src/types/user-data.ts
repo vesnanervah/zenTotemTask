@@ -1,5 +1,5 @@
 type UserData = {
-    userID: string,
+    userID: number,
     firstName: string,
     lastName: string,
     email: string,
@@ -19,4 +19,10 @@ type LoginResponse = {
 
 }
 
-export { UserData, LoginData, LoginResponse };
+type UpdateData = {
+    userID: number,
+    name: string,
+    value: string
+}
+
+export { UserData, LoginData, LoginResponse, UpdateData };

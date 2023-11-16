@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseValidatedInputComponent } from '../../base-validated-input/base-validated-input.component';
 import { ProfileItemData } from '../../../types/profile-item';
+import { AuthService } from '../../auth.service';
 
 
 @Component({
@@ -12,6 +13,9 @@ import { ProfileItemData } from '../../../types/profile-item';
   styleUrl: './profile-item.component.scss'
 })
 export class ProfileItemComponent {
+
+  constructor( private authService: AuthService) { }
+
   @Input() data: ProfileItemData | undefined;
   @ViewChild('error') errorRef: ElementRef<HTMLElement> | undefined;
   editMode = false;
@@ -29,7 +33,7 @@ export class ProfileItemComponent {
     event.preventDefault();
     if (this.checkSubmitReady()) {
       this.editMode = false;
-      
+      this.submitUpdate(this.data?.field.name as string, this.data?.field.value as string);
     }
   }
 
@@ -45,6 +49,15 @@ export class ProfileItemComponent {
 
 
   private async submitUpdate(name: string, value: string) {
-
+    try {
+      const res = await this.authService.updateUser({ 
+        userID: this.authService.getUserData()?.userID as number,
+        name,
+        value
+      });
+      console.log(res);
+    } catch {
+      console.log('Profile page cant update value')
+    }
   }
 }

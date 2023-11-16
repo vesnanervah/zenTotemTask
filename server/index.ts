@@ -128,7 +128,7 @@ app.get('/users', async (req, res)=> {
 app.post('/update-user', async(req, res) => {
     try {
         const { userID, name, value } = req.body as UpdateBody;
-        await User.update({ [name]: value }, { where: {userID} });
+        await User.update({ [name]:  (name === 'phone' ? (+value) : value) }, { where: {userID} });
         const updated = await User.findOne({where: {userID}});
         res.send(updated?.toJSON());
     } catch {

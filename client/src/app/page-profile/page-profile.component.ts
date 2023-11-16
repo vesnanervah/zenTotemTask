@@ -98,7 +98,7 @@ export class PageProfileComponent implements OnInit {
           name: 'phone',
           value: `+7 ${this.userData.phone}`,
           valid: true,
-          errorMsg: 'Phone should only contains numbers.',
+          errorMsg: 'Phone should only contains numbers, 10 count total.',
           placeholder: `+7 ${this.userData.phone}`,
           inputType: 'text',
           ref: undefined
