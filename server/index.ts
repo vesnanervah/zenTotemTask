@@ -31,7 +31,7 @@ const User = sequelize.define('User', {
         allowNull: false
     },
     phone: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     role: {
@@ -47,7 +47,7 @@ const User = sequelize.define('User', {
         autoIncrement: true,
         primaryKey: true
     }
-}, { timestamps: false, tableName: 'Users'});
+}, { timestamps: false, tableName: 'User'});
 const authTokens: Map<string, string> = new Map ();
 
 app.use(cors());
@@ -105,7 +105,7 @@ app.post('/new-user', async (req, res) => {
             password: makeHashPass(password),
             firstName: 'Анонимный',
             lastName: 'Пользователь',
-            phone: 9999999999,
+            phone: '+79999999999',
             website: null,
             role: 'base'
         });
@@ -131,7 +131,7 @@ app.get('/users', async (req, res)=> {
 app.post('/update-user', async(req, res) => {
     try {
         const { userID, name, value } = req.body as UpdateBody;
-        await User.update({ [name]:  (name === 'phone' ? (+value) : value) }, { where: {userID} });
+        await User.update({ [name]:  value }, { where: {userID} });
         const updated = await User.findOne({where: {userID}});
         res.send(updated?.toJSON());
     } catch {

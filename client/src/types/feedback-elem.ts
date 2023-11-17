@@ -1,6 +1,6 @@
 type FeedbackElem = {
     name: string,
-    newValue: string | number;
+    newValue: string;
 }
 
 export { FeedbackElem };
