@@ -19,6 +19,7 @@ type ValidatedField = {
     errorMsg: string,
     placeholder: string,
     inputType: string,
+    maxlen?: string,
 };
 
 type ValidatedFields = {

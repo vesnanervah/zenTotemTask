@@ -70,7 +70,7 @@ export class PageProfileComponent implements OnInit {
           errorMsg: '',
           placeholder: this.userData.email,
           inputType: 'email',
-          ref: undefined
+          ref: undefined,
         }
       },
       {
@@ -96,7 +96,8 @@ export class PageProfileComponent implements OnInit {
           errorMsg: 'First name should contains only a-z/A-Z, а-я/А-Я  letters.',
           placeholder: this.userData.firstName,
           inputType: 'text',
-          ref: undefined
+          ref: undefined,
+          maxlen: '255'
         },
       },
       {
@@ -109,7 +110,8 @@ export class PageProfileComponent implements OnInit {
           errorMsg: 'First name should contains only a-z/A-Z, а-я/А-Я  letters.',
           placeholder: this.userData.lastName,
           inputType: 'text',
-          ref: undefined
+          ref: undefined,
+          maxlen: '255'
         },
       },
       {
@@ -119,10 +121,11 @@ export class PageProfileComponent implements OnInit {
           name: 'phone',
           value: `+7 ${this.userData.phone}`,
           valid: true,
-          errorMsg: 'Phone should only contains numbers, 10 count total.',
+          errorMsg: 'Phone should only contains numbers.',
           placeholder: `+7 ${this.userData.phone}`,
           inputType: 'text',
-          ref: undefined
+          ref: undefined,
+          maxlen: '10'
         },
       },
       {
