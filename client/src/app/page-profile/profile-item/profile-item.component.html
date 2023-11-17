@@ -8,7 +8,7 @@
             <button type="button" class="item__btn" *ngIf="editMode" (click)="handleCancelClick()">cancel</button>
             <button type="button" class="item__btn" *ngIf="!editMode" (click)="handleEditClick()">edit</button>
         </div>
-        <div class="item__btn" *ngIf="!data?.canChange">not changeable</div>
+        <div class="item__btn not_changeable" *ngIf="!data?.canChange">not changeable</div>
     </div>
     <div class="item__bottom">
         <app-base-validated-input [data]="data?.field" [disabled]="!editMode" [validationCompare]="data?.validationStr"></app-base-validated-input>

@@ -31,6 +31,13 @@
             cursor: pointer;
             text-decoration: underline;
         }
+
+        &.not_changeable {
+            &:hover {
+                text-decoration: none;
+                cursor:not-allowed;
+            }
+        }
     }
     
 }
