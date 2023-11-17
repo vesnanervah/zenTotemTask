@@ -39,6 +39,9 @@ export class BaseValidatedInputComponent implements OnInit {
     if (typeof this.validationCompare === 'function') {
       valid = this.validationCompare(value);
     }
+    if(this.data.minlen) {
+      valid = value.length > this.data.minlen;
+    }
     this.data.value = value;
     this.data.valid = valid
 

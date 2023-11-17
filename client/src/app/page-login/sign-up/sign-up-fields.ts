@@ -13,9 +13,10 @@ const signUpFields: ValidatedFields = {
       name: 'password',
       value: '',
       valid: false,
-      errorMsg: "Password should contains only a-z, A-Z letters and 0-9 number.",
+      errorMsg: "Password should contains only a-z, A-Z letters and 0-9 number and length 3 or more chars.",
       placeholder: 'Password',
-      inputType: 'password'
+      inputType: 'password',
+      minlen: 2
     },
     repeatPassword: {
       name: 'repeatPassword',

@@ -1,2 +1,3 @@
 <input #inputElem [type]="data?.inputType" class="validated_input" [placeholder]="data?.placeholder" 
-(keydown)="handleKeyDown($event)" (keyup)="handleKeyUp($event, inputElem.value)" [disabled]="disabled" [maxLength]="data?.maxlen ? data?.maxlen: '255'">
+(keydown)="handleKeyDown($event)" (keyup)="handleKeyUp($event, inputElem.value)" [disabled]="disabled"
+[maxLength]="data?.maxlen ? data?.maxlen: '255'">

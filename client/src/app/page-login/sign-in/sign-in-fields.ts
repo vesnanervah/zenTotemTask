@@ -7,15 +7,16 @@ const signInFields: ValidatedFields = {
       valid: false,
       errorMsg: "Email should be in 'example@mail.com'.",
       placeholder: 'Email',
-      inputType: 'text'
+      inputType: 'text',
     },
     password: {
       name: 'password',
       value: '',
       valid: false,
-      errorMsg: "Password should contains only a-z, A-Z letters and 0-9 numbers.",
+      errorMsg: "Password should contains only a-z, A-Z letters and 0-9 numbers and length 3 or more chars.",
       placeholder: 'Password',
-      inputType: 'password'
+      inputType: 'password',
+      minlen: 2
     },
 };
 

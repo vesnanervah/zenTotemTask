@@ -1,5 +1,3 @@
-import { ElementRef } from "@angular/core"
-
 type TypedEventArgs = {
     name: string, 
     result: string
@@ -19,6 +17,7 @@ type ValidatedField = {
     placeholder: string,
     inputType: string,
     maxlen?: string,
+    minlen?: number
 };
 
 type ValidatedFields = {

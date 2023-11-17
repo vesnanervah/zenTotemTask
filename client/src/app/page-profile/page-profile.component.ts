@@ -75,11 +75,12 @@ export class PageProfileComponent implements OnInit {
         canChange: true,
         field: {
           name: 'password',
-          value: 'Password should contains only a-z/A-Z letters and numbers.',
+          value: 'Password should contains only a-z/A-Z letters and numbers and length 3 or more chars.',
           valid: true,
           errorMsg: '',
           placeholder: '********',
           inputType: 'password',
+          minlen: 2
         }
       },
       {
@@ -89,10 +90,10 @@ export class PageProfileComponent implements OnInit {
           name: 'firstName',
           value: this.userData.firstName,
           valid: true,
-          errorMsg: 'First name should contains only a-z/A-Z, а-я/А-Я  letters.',
+          errorMsg: 'First name should contains only a-z/A-Z, а-я/А-Я  letters and length 3 or more chars.',
           placeholder: this.userData.firstName,
           inputType: 'text',
-          maxlen: '255'
+          minlen: 2
         },
       },
       {
@@ -102,10 +103,10 @@ export class PageProfileComponent implements OnInit {
           name: 'lastName',
           value: this.userData.lastName,
           valid: true,
-          errorMsg: 'First name should contains only a-z/A-Z, а-я/А-Я  letters.',
+          errorMsg: 'First name should contains only a-z/A-Z, а-я/А-Я  letters and length 3 or more chars.',
           placeholder: this.userData.lastName,
           inputType: 'text',
-          maxlen: '255'
+          minlen: 2
         },
       },
       {
@@ -115,7 +116,7 @@ export class PageProfileComponent implements OnInit {
           name: 'phone',
           value: `+7 ${this.userData.phone}`,
           valid: true,
-          errorMsg: 'Phone should only contains numbers.',
+          errorMsg: 'Phone should only contains numbers and length 10 total.',
           placeholder: `+7 ${this.userData.phone}`,
           inputType: 'text',
           maxlen: '10'
