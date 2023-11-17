@@ -39,13 +39,10 @@ export class BaseValidatedInputComponent implements OnInit {
     }
     let valid = false;
     if (this.validationCompare instanceof RegExp) {
-      valid = this.validationCompare.test(value)
+      valid = this.data.minlen ? (this.validationCompare.test(value) && value.length > this.data.minlen) : this.validationCompare.test(value);
     }
     if (typeof this.validationCompare === 'function') {
-      valid = this.validationCompare(value);
-    }
-    if(this.data.minlen) {
-      valid = value.length > this.data.minlen;
+      valid = this.data.minlen ?  (this.validationCompare(value) && value.length > this.data.minlen) : this.validationCompare(value);
     }
     this.data.value = value;
     this.data.valid = valid
