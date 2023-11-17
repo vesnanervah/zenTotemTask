@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TypedEventArgs, ValidatedField, ValidationEventArgs } from '../../types/base-validated-input';
 
@@ -52,9 +52,14 @@ export class BaseValidatedInputComponent implements OnInit {
 
   }
 
-  isPrefixed(value: string, prefix: string): boolean {
+  private isPrefixed(value: string, prefix: string): boolean {
     return value.length >= prefix.length ?
     value.startsWith(prefix) :
     value.startsWith(prefix.slice(0, value.length))
+  }
+
+  setManualy(value: string) {
+    (this.inputElem as ElementRef).nativeElement.value = value;
+    if(this.data) this.data.value = value;
   }
 }

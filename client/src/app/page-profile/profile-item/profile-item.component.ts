@@ -19,16 +19,23 @@ export class ProfileItemComponent {
 
   @Input() data: ProfileItemData | undefined;
   @ViewChild('error') errorRef: ElementRef<HTMLElement> | undefined;
+  @ViewChild('inputElem') inputRef: BaseValidatedInputComponent | undefined;
   @Output() successfulUpdate: EventEmitter<FeedbackElem> = new EventEmitter();
+  beforeEdit: string | undefined;
   editMode = false;
 
   handleEditClick() {
     this.editMode = true;
+    this.beforeEdit = this.data?.field.value;
   }
 
   handleCancelClick() {
     this.editMode = false;
-    (this.errorRef?.nativeElement as HTMLElement).textContent = ''
+    (this.errorRef?.nativeElement as HTMLElement).textContent = '';
+    if (this.beforeEdit && this.data) {
+      this.data.field.value = this.beforeEdit;
+      this.inputRef?.setManualy(this.beforeEdit);
+    }
   }
 
   async handleSaveClick(event: Event) {

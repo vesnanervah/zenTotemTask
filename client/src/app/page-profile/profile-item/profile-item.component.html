@@ -11,7 +11,7 @@
         <div class="item__btn not_changeable" *ngIf="!data?.canChange">not changeable</div>
     </div>
     <div class="item__bottom">
-        <app-base-validated-input [data]="data?.field" [disabled]="!editMode" [validationCompare]="data?.validationStr"></app-base-validated-input>
+        <app-base-validated-input [data]="data?.field" [disabled]="!editMode" [validationCompare]="data?.validationStr" #inputElem></app-base-validated-input>
     </div>
 </form>
 <div class="error" #error></div>
