@@ -100,6 +100,12 @@ app.post('/login', async (req, res) => {
 app.post('/new-user', async (req, res) => {
     try {
         const { email, password } = req.body as RegisterBody;
+        const finded = await User.findOne({ where: {email}});
+        if (finded) {
+            res.statusCode = 409;
+            res.send('The email is already taken!');
+            return;
+        }
         const newUser = await User.create({
             email,
             password: makeHashPass(password),

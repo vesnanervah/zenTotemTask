@@ -1,7 +1,6 @@
 import { ElementRef } from "@angular/core";
 import { ValidatedFields} from "../../types/base-validated-input";
 export default class BaseLoginVariant {
-
     validatedFields: ValidatedFields;
 
     constructor(fields: ValidatedFields) {

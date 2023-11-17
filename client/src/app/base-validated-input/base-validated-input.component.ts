@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ValidatedField} from '../../types/base-validated-input';
 
@@ -13,8 +13,9 @@ export class BaseValidatedInputComponent implements OnInit {
   @Input() data: ValidatedField | undefined;
   @Input() validationCompare: RegExp | undefined | ((value: string) => boolean); 
   @Input() disabled: boolean | undefined;
+  @Output() typed: EventEmitter<string> = new EventEmitter();
   @ViewChild('inputElem') inputElem: ElementRef<HTMLInputElement> | undefined;
-
+  
   ngOnInit(): void {
     if (this.data && this.data.value.length > 0 && this.inputElem) {
       this.inputElem.nativeElement.value = this.data.value;
@@ -33,20 +34,28 @@ export class BaseValidatedInputComponent implements OnInit {
       return;
     }
     
+    this.validate(value, this.validationCompare);
+    this.typed.emit();
+
+  }
+
+  validate(value: string, compare: RegExp | undefined | ((value: string) => boolean)) {
+    if (!this.data || !this.inputElem) {
+      return;
+    }
     if (this.data.prefix && !this.isPrefixed(value, this.data.prefix)) {
       value = this.data.prefix + value;
       this.inputElem.nativeElement.value = value;
     }
     let valid = false;
-    if (this.validationCompare instanceof RegExp) {
-      valid = this.data.minlen ? (this.validationCompare.test(value) && value.length > this.data.minlen) : this.validationCompare.test(value);
+    if (compare instanceof RegExp) {
+      valid = this.data.minlen ? (compare.test(value) && value.length > this.data.minlen) : compare.test(value);
     }
-    if (typeof this.validationCompare === 'function') {
-      valid = this.data.minlen ?  (this.validationCompare(value) && value.length > this.data.minlen) : this.validationCompare(value);
+    if (typeof compare === 'function') {
+      valid = this.data.minlen ?  (compare(value) && value.length > this.data.minlen) : compare(value);
     }
     this.data.value = value;
     this.data.valid = valid;
-
   }
 
   private isPrefixed(value: string, prefix: string): boolean {

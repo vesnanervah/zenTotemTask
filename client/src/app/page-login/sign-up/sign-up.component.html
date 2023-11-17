@@ -2,8 +2,8 @@
     <h2 class="login__header">Sign in</h2>
     <form class="login__form">
         <app-base-validated-input [data]="validatedFields['email']"  [validationCompare]="regExps.email"></app-base-validated-input>
-        <app-base-validated-input [data]="validatedFields['password']" [validationCompare]="regExps.password"></app-base-validated-input>
-        <app-base-validated-input [data]="validatedFields['repeatPassword']" [validationCompare]="passwordRepeatValidation()"></app-base-validated-input>
+        <app-base-validated-input [data]="validatedFields['password']" [validationCompare]="regExps.password" (typed)="handlePasswordTyped($event)"></app-base-validated-input>
+        <app-base-validated-input [data]="validatedFields['repeatPassword']" [validationCompare]="passwordRepeatValidation()" #repeatPassword></app-base-validated-input>
         <button type="submit" class="login__btn" (click)="handleSubmitClick($event)">Sign up</button>
         <div class="login__or">already have an account?</div>
         <button type="button" class="login__btn" routerLink="/login/sign-in">Sign in</button>

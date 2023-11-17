@@ -88,8 +88,7 @@ export class AuthService {
     return res;
   }
 
-  loggout() {
-    console.log('logout')
+  loggout() { 
     this.userData = undefined;
     this.loggedIn = false;
     this.deleteAuthInStorage();

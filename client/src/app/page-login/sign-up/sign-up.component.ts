@@ -18,6 +18,7 @@ import { signUpFields } from './sign-up-fields';
 export class SignUpComponent extends BaseLoginVariant{
   @ViewChild('variant') elemRef: ElementRef <HTMLElement> | undefined;
   @ViewChild('error') errorRef: ElementRef <HTMLElement> | undefined;
+  @ViewChild('repeatPassword') repeatPasswordRef: BaseValidatedInputComponent | undefined;
   regExps = regExps;
 
   constructor(
@@ -32,6 +33,7 @@ export class SignUpComponent extends BaseLoginVariant{
   }
 
   protected override async authTry() {
+    console.log('trying to auth')
     const loginData:LoginData = {
       email: this.validatedFields['email'].value,
       password: this.validatedFields['password'].value
@@ -40,7 +42,14 @@ export class SignUpComponent extends BaseLoginVariant{
     if (res.status === 200) {
       this.router.navigateByUrl('/login/successful');
       return;
+    } else if (res.status === 409) {
+      if(this.errorRef) this.errorRef.nativeElement.innerHTML = 'This email is already taken.';
+      this.animateIncompleteState(this.elemRef?.nativeElement);
     }
+  }
+
+  handlePasswordTyped(value: string) {
+    if(this.repeatPasswordRef) this.repeatPasswordRef.validate(value, this.passwordRepeatValidation());
   }
 
   passwordRepeatValidation() {
