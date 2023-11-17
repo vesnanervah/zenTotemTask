@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TypedEventArgs, ValidatedField, ValidationEventArgs } from '../../types/base-validated-input';
+import { ValidatedField} from '../../types/base-validated-input';
 
 @Component({
   selector: 'app-base-validated-input',

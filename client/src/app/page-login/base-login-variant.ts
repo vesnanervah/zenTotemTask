@@ -1,5 +1,5 @@
 import { ElementRef } from "@angular/core";
-import { TypedEventArgs, ValidatedFields, ValidationEventArgs } from "../../types/base-validated-input";
+import { ValidatedFields} from "../../types/base-validated-input";
 export default class BaseLoginVariant {
 
     validatedFields: ValidatedFields;
