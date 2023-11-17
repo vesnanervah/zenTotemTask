@@ -2,11 +2,11 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseValidatedInputComponent } from '../../base-validated-input/base-validated-input.component';
 import { Router, RouterLink } from '@angular/router';
-import { ValidatedFields } from '../../../types/base-validated-input';
 import BaseLoginVariant from '../base-login-variant';
 import { AuthService } from '../../auth.service';
 import { LoginData } from '../../../types/user-data';
 import { regExps } from '../../../reg-exps/reg-exps';
+import { signUpFields } from './sign-up-fields';
 
 @Component({
   selector: 'app-sign-up',
@@ -24,35 +24,7 @@ export class SignUpComponent extends BaseLoginVariant{
     private authService: AuthService,
     private router: Router
   ) {
-    super({
-      email: {
-        name: 'email',
-        ref: undefined,
-        value: "",
-        valid: false,
-        errorMsg: "Email should be in 'example@mail.com'.",
-        placeholder: 'Email',
-        inputType: 'text'
-      },
-      password: {
-        name: 'password',
-        ref: undefined,
-        value: '',
-        valid: false,
-        errorMsg: "Password should contains only a-z, A-Z letters and 0-9 number.",
-        placeholder: 'Password',
-        inputType: 'password'
-      },
-      repeatPassword: {
-        name: 'repeatPassword',
-        ref: undefined,
-        value: '',
-        valid: false,
-        errorMsg: "Passwords should be the same",
-        placeholder: 'Repeat password',
-        inputType: 'password'
-      },
-    });
+    super(signUpFields);
   }
 
   handleSubmitClick(event: Event) {
@@ -71,7 +43,7 @@ export class SignUpComponent extends BaseLoginVariant{
     }
   }
 
-  passwordValidation() {
+  passwordRepeatValidation() {
     const password = this.validatedFields['password'].value;
     return (value: string) => value === password;
   }

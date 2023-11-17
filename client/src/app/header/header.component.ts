@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
@@ -25,7 +25,9 @@ export class HeaderComponent {
   }
 
   getFullName() {
-    return this.authService.getUserData() ? this.authService.getUserData()?.firstName + ' ' + this.authService.getUserData()?.lastName : ''
+    return this.authService.getUserData() ? 
+    this.authService.getUserData()?.firstName + ' ' + this.authService.getUserData()?.lastName
+    : '';
   }
 
   getBtnTxt () {

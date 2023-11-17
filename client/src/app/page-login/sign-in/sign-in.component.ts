@@ -6,6 +6,7 @@ import BaseLoginVariant from '../base-login-variant';
 import { AuthService } from '../../auth.service';
 import { LoginData } from '../../../types/user-data';
 import { regExps } from '../../../reg-exps/reg-exps';
+import { signInFields } from './sign-in-fields';
 
 @Component({
   selector: 'app-sign-in',
@@ -24,26 +25,7 @@ export class SignInComponent extends BaseLoginVariant {
     private authService: AuthService,
     private router: Router
   ) {
-    super({
-      email: {
-        name: 'email',
-        ref: undefined,
-        value: "",
-        valid: false,
-        errorMsg: "Email should be in 'example@mail.com'.",
-        placeholder: 'Email',
-        inputType: 'text'
-      },
-      password: {
-        name: 'password',
-        ref: undefined,
-        value: '',
-        valid: false,
-        errorMsg: "Password should contains only a-z, A-Z letters and 0-9 number.",
-        placeholder: 'Password',
-        inputType: 'password'
-      },
-    });
+    super(signInFields);
   }
 
   handleSubmitClick(event: Event) {

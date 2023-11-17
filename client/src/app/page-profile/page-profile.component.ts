@@ -16,8 +16,6 @@ import { FeedbackElem } from '../../types/feedback-elem';
   styleUrl: './page-profile.component.scss'
 })
 export class PageProfileComponent implements OnInit {
-  
-  //@ViewChild('feedback') feedbackRef: ElementRef<HTMLElement> | undefined;
   private userData: UserData | undefined;
   itemsData: ProfileItemData[]  = [];
   feedbacks: FeedbackElem[] = [];
@@ -70,7 +68,6 @@ export class PageProfileComponent implements OnInit {
           errorMsg: '',
           placeholder: this.userData.email,
           inputType: 'email',
-          ref: undefined,
         }
       },
       {
@@ -83,7 +80,6 @@ export class PageProfileComponent implements OnInit {
           errorMsg: '',
           placeholder: '********',
           inputType: 'password',
-          ref: undefined
         }
       },
       {
@@ -96,7 +92,6 @@ export class PageProfileComponent implements OnInit {
           errorMsg: 'First name should contains only a-z/A-Z, а-я/А-Я  letters.',
           placeholder: this.userData.firstName,
           inputType: 'text',
-          ref: undefined,
           maxlen: '255'
         },
       },
@@ -110,7 +105,6 @@ export class PageProfileComponent implements OnInit {
           errorMsg: 'First name should contains only a-z/A-Z, а-я/А-Я  letters.',
           placeholder: this.userData.lastName,
           inputType: 'text',
-          ref: undefined,
           maxlen: '255'
         },
       },
@@ -124,7 +118,6 @@ export class PageProfileComponent implements OnInit {
           errorMsg: 'Phone should only contains numbers.',
           placeholder: `+7 ${this.userData.phone}`,
           inputType: 'text',
-          ref: undefined,
           maxlen: '10'
         },
       },
@@ -138,7 +131,6 @@ export class PageProfileComponent implements OnInit {
           errorMsg: '',
           placeholder: this.userData.role,
           inputType: 'text',
-          ref: undefined
         },
       },
       {
@@ -151,7 +143,6 @@ export class PageProfileComponent implements OnInit {
           errorMsg: 'Website should be in www.site.com format.',
           placeholder: this.userData.website ? this.userData.website : 'Не указан',
           inputType: 'text',
-          ref: undefined
         },
       },
     ]

@@ -13,8 +13,6 @@ export class BaseValidatedInputComponent implements OnInit {
   @Input() data: ValidatedField | undefined;
   @Input() validationCompare: RegExp | undefined | ((value: string) => boolean); 
   @Input() disabled: boolean | undefined;
-  @Output() validation: EventEmitter<ValidationEventArgs> = new EventEmitter();
-  @Output() typed: EventEmitter<TypedEventArgs> = new EventEmitter();
   @ViewChild('inputElem') inputElem: ElementRef<HTMLInputElement> | undefined;
 
   ngOnInit(): void {
@@ -30,7 +28,7 @@ export class BaseValidatedInputComponent implements OnInit {
   }
 
   handleKeyUp(event: KeyboardEvent, value: string) {
-    if (event.key === ' ') {
+    if (event.key === ' ' || !this.data) {
       event.preventDefault();
       return;
     }
@@ -41,12 +39,9 @@ export class BaseValidatedInputComponent implements OnInit {
     if (typeof this.validationCompare === 'function') {
       valid = this.validationCompare(value);
     }
-    if(this.data){
-      this.data.value = value;
-      this.data.valid = valid
-    }
-    this.validation.emit({name: this.data?.name as string, result: valid});
-    this.typed.emit({ name: this.data?.name as string, result: value});
+    this.data.value = value;
+    this.data.valid = valid
+
   }
 
   

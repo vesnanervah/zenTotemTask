@@ -13,7 +13,6 @@ type ValidationEventArgs = {
 
 type ValidatedField = {
     name: string,
-    ref: ElementRef<HTMLElement> | undefined,
     value: string,
     valid: boolean,
     errorMsg: string,
