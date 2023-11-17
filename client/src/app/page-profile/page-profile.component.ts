@@ -75,9 +75,9 @@ export class PageProfileComponent implements OnInit {
         canChange: true,
         field: {
           name: 'password',
-          value: 'Password should contains only a-z/A-Z letters and numbers and length 3 or more chars.',
-          valid: true,
-          errorMsg: '',
+          value: '',
+          valid: false,
+          errorMsg: 'Password should contains only a-z/A-Z letters and numbers and length 3 or more chars.',
           placeholder: '********',
           inputType: 'password',
           minlen: 2
