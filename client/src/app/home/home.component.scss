@@ -1,5 +1,24 @@
 @import '../../sass/headers';
+@import '../../sass/colors';
 
 .main_content_header {
     @include main_content_header;
+}
+
+h3 {
+    text-align: center;
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 19px;
+}
+
+h4 {
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.home__basics {
+    margin: 0 auto;
+    font-size: 14px;
 }

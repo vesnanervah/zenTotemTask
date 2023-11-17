@@ -1,3 +1,5 @@
+@import '../../sass/colors';
+
 .validated_input {
     box-sizing: border-box;
     width: 320px;
@@ -5,10 +7,10 @@
     display: flex;
     align-items: center;
     font-size: 20px;
-    color: var(--grey);
+    color: $grey;
     padding: 0px 18px;
     border-radius: 18px;
     outline: none;
-    background-color: var(--white-l);
+    background-color: $white-l;
     border: none;
 }
