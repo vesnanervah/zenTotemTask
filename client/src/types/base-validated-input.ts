@@ -17,7 +17,8 @@ type ValidatedField = {
     placeholder: string,
     inputType: string,
     maxlen?: string,
-    minlen?: number
+    minlen?: number,
+    prefix?: string
 };
 
 type ValidatedFields = {

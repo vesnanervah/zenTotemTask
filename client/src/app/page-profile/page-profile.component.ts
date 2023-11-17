@@ -114,12 +114,14 @@ export class PageProfileComponent implements OnInit {
         canChange: true,
         field: {
           name: 'phone',
-          value: `+7 ${this.userData.phone}`,
+          value: `${this.userData.phone}`,
           valid: true,
-          errorMsg: 'Phone should only contains numbers and length 10 total.',
-          placeholder: `+7 ${this.userData.phone}`,
+          errorMsg: 'Phone should only contains numbers and length 12 total.',
+          placeholder: `${this.userData.phone}`,
           inputType: 'text',
-          maxlen: '10'
+          minlen: 11,
+          maxlen: '12',
+          prefix: '+7'
         },
       },
       {

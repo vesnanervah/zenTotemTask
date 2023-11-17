@@ -28,9 +28,14 @@ export class BaseValidatedInputComponent implements OnInit {
   }
 
   handleKeyUp(event: KeyboardEvent, value: string) {
-    if (event.key === ' ' || !this.data) {
+    if (event.key === ' ' || !this.data || !this.inputElem) {
       event.preventDefault();
       return;
+    }
+    
+    if (this.data.prefix && !this.isPrefixed(value, this.data.prefix)) {
+      value = this.data.prefix + value;
+      this.inputElem.nativeElement.value = value;
     }
     let valid = false;
     if (this.validationCompare instanceof RegExp) {
@@ -47,5 +52,9 @@ export class BaseValidatedInputComponent implements OnInit {
 
   }
 
-  
+  isPrefixed(value: string, prefix: string): boolean {
+    return value.length >= prefix.length ?
+    value.startsWith(prefix) :
+    value.startsWith(prefix.slice(0, value.length))
+  }
 }
