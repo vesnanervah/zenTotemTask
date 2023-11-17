@@ -4,7 +4,7 @@
     </div>
     <div class="app_header__center">
         {{ getHelloTxt() }}
-
+        <a class="app_header__link" routerLink="/profile">{{getFullName()}}</a>
     </div>
     <div class="app_header__right">
         <button (click)="handleBtnClick()"> {{ getBtnTxt() }} </button>

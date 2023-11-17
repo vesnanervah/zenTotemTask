@@ -1,9 +1,11 @@
+@import '../../sass/colors';
+
 .app_header__wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--secondary-color);
-    color: var(--white-xxl);
+    background-color: $secondary-color;
+    color: $white-xxl;
     padding: 0px 10px;
     h1 {
         font-size: 18px;
@@ -25,5 +27,12 @@
         text-align: right;
     }
 
+    .app_header__link {
+        color: $links-color;
+
+        &:hover {
+            color: $liks-color-hover;
+        }
+;    }
     
 }
