@@ -4,12 +4,13 @@ import { inject } from '@angular/core';
 
 export const loginGuard: CanActivateFn = async(route, state) => {
   const authService: AuthService = inject(AuthService);
+  const router: Router = inject(Router);
   if (typeof authService.isLoggedIn() === 'boolean') {
     return authService.isLoggedIn() ?
-    inject(Router).createUrlTree(["/", "profile"]) :
+    router.createUrlTree(["/", "profile"]) :
     true
   } 
   return (await authService.isLoggedIn() as boolean) ? 
-  inject(Router).createUrlTree(["/", "profile"]) :
+  router.createUrlTree(["/", "profile"]) :
   true
 };
