@@ -21,16 +21,8 @@ export class PageProfileComponent implements OnInit {
   feedbacks: FeedbackElem[] = [];
 
   constructor(
-    private router: Router,
     private authService: AuthService
-  ) {
-    if (this.authService.isLoggedIn() === false) {
-      router.navigateByUrl('login'); // TODO: Replace by guards
-    }
-    if (this.authService.isLoggedIn() === undefined) {
-      this.router.navigateByUrl('home'); 
-    }
-  }
+  ) { }
 
   ngOnInit(): void {
     this.userData = this.authService.getUserData();

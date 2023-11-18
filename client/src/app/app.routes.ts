@@ -5,17 +5,19 @@ import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './page-login/sign-in/sign-in.component';
 import { SignUpComponent } from './page-login/sign-up/sign-up.component';
 import { SuccessfulSignUpComponent } from './page-login/successful-sign-up/successful-sign-up.component';
+import { profileGuard } from './profile.guard';
+import { loginGuard } from './login.guard';
 
 
 export const routes: Routes = [
     {
         path:'home',
         component: HomeComponent,
-        title: 'Home'
     },
     {
         path: 'profile',
         component: PageProfileComponent,
+        canActivate:[profileGuard]
     },
     {
         path: 'login',
@@ -27,11 +29,11 @@ export const routes: Routes = [
             },
             {
                 path: 'sign-up',
-                component: SignUpComponent
+                component: SignUpComponent,
             },
             {
                 path: 'successful',
-                component: SuccessfulSignUpComponent
+                component: SuccessfulSignUpComponent,
             },
             {
                 path:'',
@@ -39,6 +41,7 @@ export const routes: Routes = [
                 pathMatch:'full'
             }
         ],
+        canActivate:[loginGuard]
     },
     {
         path: '',

@@ -8,15 +8,18 @@ export class AuthService {
 
   private loggedIn: boolean | undefined;
   private userData: UserData | undefined;
+  private tokenLogedIn: Promise<boolean | undefined> | undefined;
 
   constructor(
-  ) {  }
+  ) {
+    this.tokenLogedIn = this.loginByToken()
+    }
 
   async loginByToken() {  // use only once in app component on app initialize
     const authData = this.getAuthFromStorage();
     if(!authData.email || !authData.token) {
       this.loggout();
-      return;
+      return this.loggedIn
     }
     try {
       const res = await fetch('http://localhost:5000/auth', {
@@ -34,6 +37,8 @@ export class AuthService {
       }
     } catch {
       this.loggout();
+    } finally {
+      return this.loggedIn
     }
   
   }
@@ -95,7 +100,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return this.loggedIn;
+    return this.loggedIn !== undefined ? this.loggedIn : this.tokenLogedIn ;
   }
 
   getUserData() {

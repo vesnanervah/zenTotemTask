@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-page-login',
@@ -11,12 +10,5 @@ import { AuthService } from '../auth.service';
   styleUrl: './page-login.component.scss'
 })
 export class PageLoginComponent {
-  constructor(private authService: AuthService, private router: Router) {
-    if (this.authService.isLoggedIn() === true) { // TODO: Replace by guards
-      router.navigateByUrl('profile'); 
-    }
-    if (this.authService.isLoggedIn() === undefined) {
-      this.router.navigateByUrl('home'); 
-    }
-  }
+
 }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { NavbarComponent } from "./navbar/navbar.component";
-import { AuthService } from './auth.service';
 
 @Component({
     selector: 'app-root',
@@ -15,8 +14,7 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   title = 'zen-totem';
   constructor(
-    private authService: AuthService
   ) {
-    this.authService.loginByToken();
+
   }
 }
