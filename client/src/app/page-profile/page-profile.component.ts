@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { ProfileItemComponent } from './profile-item/profile-item.component';
 import { UserData } from '../../types/user-data';
 import { ProfileItemData } from '../../types/profile-item';
 import { regExps } from '../../reg-exps/reg-exps';
 import { FeedbackElem } from '../../types/feedback-elem';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @Component({
   selector: 'app-page-profile',
   standalone: true,
-  imports: [CommonModule, ProfileItemComponent],
+  imports: [CommonModule, ProfileItemComponent, FeedbackComponent],
   templateUrl: './page-profile.component.html',
   styleUrl: './page-profile.component.scss'
 })

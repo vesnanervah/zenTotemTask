@@ -1,0 +1,11 @@
+<div class="feedback" #feedback>
+    <div class="feedback__top">
+        <span class="feedback__header">
+            Поле {{ data?.name }} обновлено!
+        </span>
+        <button type="button" class="feedback__close" (click)="handleDestroyClick()">x</button>
+    </div>
+    <div class="feedback__bottom">
+        Сообщение автоматически исчезнет через 30 секунд.
+    </div>
+</div>

@@ -1,15 +1,5 @@
-<div class="update_feedbacks">
-    <div class="feedback" *ngFor="let feedback of feedbacks">
-        <div class="feedback__top">
-            <span class="feedback__header">
-                Поле {{ feedback.name }} обновлено!
-            </span>
-            <button type="button" class="feedback__close" (click)="handleDestroyClick(feedback)">x</button>
-        </div>
-        <div class="feedback__bottom">
-            Сообщение автоматически исчезнет через 30 секунд.
-        </div>
-    </div>
+<div class="update_feedbacks" *ngIf="feedbacks.length > 0">
+    <app-feedback *ngFor="let feedback of feedbacks" [data]="feedback" (destroyClicked)="handleDestroyClick(feedback)"></app-feedback>
 </div>
 <div class="profile_wrapper">
     <h2 class="main_content_header">
